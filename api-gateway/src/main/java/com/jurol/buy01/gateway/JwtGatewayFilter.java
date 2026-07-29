@@ -3,6 +3,7 @@ package com.jurol.buy01.gateway;
 import com.jurol.buy01.common.security.JwtUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
@@ -20,6 +21,7 @@ import java.util.List;
 public class JwtGatewayFilter implements GlobalFilter, Ordered {
 
     private static final Logger log = LoggerFactory.getLogger(JwtGatewayFilter.class);
+
     private final JwtUtil jwtUtil;
 
     public JwtGatewayFilter(JwtUtil jwtUtil) {

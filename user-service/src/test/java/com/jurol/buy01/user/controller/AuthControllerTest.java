@@ -3,6 +3,7 @@ package com.jurol.buy01.user.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jurol.buy01.common.dto.AuthRequest;
 import com.jurol.buy01.common.dto.UserDTO;
+import com.jurol.buy01.common.security.JwtUtil;
 import com.jurol.buy01.user.kafka.UserEventProducer;
 import com.jurol.buy01.user.service.UserService;
 import org.junit.jupiter.api.Test;
@@ -32,6 +33,9 @@ class AuthControllerTest {
 
     @MockitoBean
     private UserEventProducer userEventProducer;
+
+    @MockitoBean
+    private JwtUtil jwtUtil;
 
     @Autowired
     private ObjectMapper objectMapper;
