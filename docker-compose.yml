@@ -1,0 +1,62 @@
+services:
+  eureka-server:
+    build:
+      context: .
+      dockerfile: Dockerfile.eureka-server
+    ports:
+      - "8761:8761"
+
+  api-gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile.api-gateway
+    ports:
+      - "9000:9000"
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+    depends_on:
+      - eureka-server
+
+  user-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.user-service
+    ports:
+      - "8081:8081"
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      SPRING_DATA_MONGODB_URI: mongodb://host.docker.internal:27017/users_db
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: host.docker.internal:9092
+    depends_on:
+      - eureka-server
+
+  product-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.product-service
+    ports:
+      - "8082:8082"
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      SPRING_DATA_MONGODB_URI: mongodb://host.docker.internal:27017/products_db
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: host.docker.internal:9092
+    depends_on:
+      - eureka-server
+
+  media-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.media-service
+    ports:
+      - "8083:8083"
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      SPRING_DATA_MONGODB_URI: mongodb://host.docker.internal:27017/media_db
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: host.docker.internal:9092
+    volumes:
+      - media-storage:/app/media-storage
+    depends_on:
+      - eureka-server
+
+volumes:
+  media-storage:
