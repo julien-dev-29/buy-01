@@ -11,10 +11,10 @@ import org.springframework.stereotype.Component;
 public class UserEventProducer {
 
     private static final Logger log = LoggerFactory.getLogger(UserEventProducer.class);
-    private final KafkaTemplate<String, UserRegisteredEvent> kafkaTemplate;
+    private final KafkaTemplate<String, Object> kafkaTemplate;
     private final String topic;
 
-    public UserEventProducer(KafkaTemplate<String, UserRegisteredEvent> kafkaTemplate,
+    public UserEventProducer(KafkaTemplate<String, Object> kafkaTemplate,
                              @Value("${kafka.topics.user-events}") String topic) {
         this.kafkaTemplate = kafkaTemplate;
         this.topic = topic;

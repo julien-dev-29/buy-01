@@ -2,6 +2,7 @@ package com.jurol.buy01.gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.cors.CorsConfiguration;
@@ -11,6 +12,7 @@ import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 import java.util.List;
 
 @SpringBootApplication
+@EnableDiscoveryClient
 @ComponentScan(basePackages = {"com.jurol.buy01.gateway", "com.jurol.buy01.common"})
 public class ApiGatewayApplication {
     public static void main(String[] args) {
